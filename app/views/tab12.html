@@ -1,0 +1,40 @@
+<div>
+    <style>
+        .red h1{
+            color:red;
+        }
+        .red{
+            background: red;
+            width:200px;height:200px;
+            border-radius: 50%;
+            animation:move 2s linear infinite;
+        }
+        .start:hover ~.start{
+            -webkit-animation-play-state: paused;
+        }
+        @keyframes move {
+            0% {
+             opacity:0;
+        }
+            100% {
+             opacity:1;
+            }
+        }
+    </style>
+
+
+    <div class="jumbotron">
+        {{title}}
+    </div>
+    <div class="start btn btn-default bgn-lg text-center">start</div>
+    <div class="red">
+    </div>
+    <!--<script>-->
+        <!--document.getElementsByClassName('start')[0].addEventListener('click',function () {-->
+            <!--console.log('click start');-->
+            <!--var target = document.getElementsByClassName('red')[0];-->
+            <!--target.style.animationPlayState = target.style.animationPlayState === 'paused'?'running':'paused'-->
+        <!--})-->
+    <!--</script>-->
+
+</div>

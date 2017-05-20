@@ -1,0 +1,23 @@
+{
+  "main": "index.html",
+  "name": "NW project",
+  "single-instance": true,
+  "description": "nw for test",
+  "version": "1.0.0",
+  "keywords": [ "editor", "NW.js" ],
+  "nodejs": true,
+  "window": {
+    "toolbar": true,
+    "frame": true,
+    "icon": "assets/img/logo_bird.png",
+    "position": "center",
+    "min_width": 1200,
+    "min_height": 650,
+    "height": 740,
+    "resizable": true,
+    "show_in_taskbar": true
+  },
+  "dependencies": {
+
+  }
+}
