@@ -1,7 +1,7 @@
 /**
  * Created by hlkjsen on 2017/4/25.
  */
-var app = angular.module('app',['routes']);
+var app = angular.module('app',['routes','services']);
 
 app.config(['$ocLazyLoadProvider', '$compileProvider', function($ocLazyLoadProvider, $compileProvider) {
     // 解决 nw 中 图片无法正常显示问题
@@ -9,3 +9,12 @@ app.config(['$ocLazyLoadProvider', '$compileProvider', function($ocLazyLoadProvi
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file:chrome-extension):/);
 
 }]);
+app.run(['$rootScope','$state',function ($rootScope,$state) {
+    $rootScope._state = $state;
+}])
+//
+//
+// app.controller('mainCtrl',['$scope',function ($scope) {
+//     console.log('mainCtrl');
+//     $scope.title = 'hello';
+// }])

@@ -14,10 +14,20 @@
     <script src="js/lib/angular-ui-router.js"></script>
     <script src="js/lib/ocLazyLoad.js"></script>
     <script src="js/router.js"></script>
+    <script src="js/services.js"></script>
     <script src="js/app.js"></script>
 </head>
 <body>
-    <div ui-view></div>
+    <div class="title-bar">
+        <div class="title-btn"></div>
+        <div class="title-btn"></div>
+        <div class="title-btn"></div>
+    </div>
+    <div class="main-body">
+        <div ng-include="'views/header.html'"></div>
+        <div ui-view class="main-page"></div>
+    </div>
+
 </body>
 </html>
 

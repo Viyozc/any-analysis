@@ -9,7 +9,7 @@ gulp.task('js',function () {
         // .pipe(babel({
         //     presets:['es2015']
         // }))
-        .pipe(stripDebug())
-        .pipe(uglify())
+        // .pipe(stripDebug())
+        // .pipe(uglify())
         .pipe(gulp.dest(jsDir.dest))
 });

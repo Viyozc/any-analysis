@@ -7,13 +7,13 @@
   "keywords": [ "editor", "NW.js" ],
   "nodejs": true,
   "window": {
-    "toolbar": true,
-    "frame": true,
+    "toolbar": false,
+    "frame": false,
     "icon": "assets/img/logo_bird.png",
     "position": "center",
     "min_width": 1200,
     "min_height": 650,
-    "height": 740,
+    "height": 650,
     "resizable": true,
     "show_in_taskbar": true
   },

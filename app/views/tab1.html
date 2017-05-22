@@ -1,20 +1,74 @@
-<div class="row">
-    <div class="col-xs-2">
-        <ul class="list-group">
-            <li class="list-group-item">
-                <h2 class="text-center">Tools</h2>
-            </li>
-            <li class="list-group-item">
-                <a href="" ui-sref="app.tab1.tab11">videoTest</a>
-            </li>
-            <li class="list-group-item">
-                <a href="" ui-sref="app.tab1.tab12">jump</a>
-            </li>
-        </ul>
-    </div>
+<!--<div class="row">-->
+    <!--<div class="col-xs-2">-->
+        <!--<ul class="list-group">-->
+            <!--<li class="list-group-item">-->
+                <!--<h2 class="text-center">Tools</h2>-->
+            <!--</li>-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="" ui-sref="app.tab1.tab11">videoTest</a>-->
+            <!--</li>-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="" ui-sref="app.tab1.tab12">jump</a>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>-->
 
-    <div class="col-xs-10">
-        <div ui-view class="view-two"></div>
+    <!--<div class="col-xs-10">-->
+        <!--<div ui-view class="view-two"></div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<div>
+    <label >website</label>
+    <div class="input-group">
+        <span class="input-group-addon" >website</span>
+        <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="anSite">
     </div>
+    <br>
+    <label >website</label>
+    <div class="input-group">
+        <span class="input-group-addon" >other entrance</span>
+        <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="nextBase">
+        <span class="input-group-addon" >other entrance</span>
+        <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="nextSel">
+        <div class="checkbox input-group-addon ">
+            <label>
+                <input type="checkbox" ng-model="singleOut">only
+            </label>
+        </div>
+    </div>
+    <br>
+    <label>analysis data set</label>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-success" ng-repeat="obj in anItem track by $index">
+            <div class="input-group">
+                <span class="input-group-addon"> 数据名</span>
+                <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="obj.anName">
+
+                <span class="input-group-addon" >选择器</span>
+                <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="obj.anSelection">
+
+                <!--<div class="checkbox">-->
+                    <!--<label>-->
+                    <!--</label>-->
+                <!--</div>-->
+
+                <span class="input-group-addon">类型</span>
+                <select name="type" class="form-control " ng-model="obj.anType">
+                    <option value="s" selected="selected">string</option>
+                    <option value="n">num</option>
+                </select>
+
+
+            </div>
+        </li>
+
+        <!--<li class="list-group-item list-group-item-info">Cras sit amet nibh libero</li>-->
+        <!--<li class="list-group-item list-group-item-warning">Porta ac consectetur ac</li>-->
+        <!--<li class="list-group-item list-group-item-danger">Vestibulum at eros</li>-->
+    </ul>
+    <div class="btn btn-danger btn-block" ng-click="addMore()">ADD MORE</div>
+    <br>
+    <div class="btn btn-primary btn-block " ng-click="start()">START</div>
 </div>
-
