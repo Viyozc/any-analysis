@@ -4,6 +4,7 @@
 angular.module('services',[])
 .factory('dealData',function () {
     return {
-        savedData:{}
+        savedData:[],
+        tHead:[]
     }
 })

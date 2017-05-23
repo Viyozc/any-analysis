@@ -14,21 +14,29 @@ angular.module('app',[])
     $scope.nextBase = 'http://www.hangge.com/blog/cache/';
     $scope.nextSel = '.pre_next_article .a_underline';
     $scope.singleOut = true;
+    $scope.anCount = 5;
     $scope.anItem = [
-        {anName:'title',anSelection:'div.leftWrap h1.article_title',anType:'s'},
-        {anName:'name',anSelection:'.article_meta.article_meta_nowrap span.lFloat',anType:'s'}
+        {anName:'title',anSelection:'div.leftWrap h1.article_title',anType:'string'},
+        {anName:'name',anSelection:'.article_meta.article_meta_nowrap span.lFloat',anType:'string'}
     ]
 
     $scope.addMore = function () {
-        $scope.anItem.push({anName:'',anSelection:'',anType:'s'})
+        $scope.anItem.push({anName:'',anSelection:'',anType:'string'})
     };
 
     $scope.start = function(){
         // alert($scope.anItem);
+        total = 0;
+        var tHead = [];
+        for(let i =0; i<$scope.anItem.length; i++){
+            tHead.push($scope.anItem[i]['anName'])
+        }
+
+        dealData.tHead = tHead;
 
         console.log($scope.anItem);
         $scope.fetchPage($scope.anSite);
-        $scope._state.go('')
+
     }
 
 
@@ -75,6 +83,7 @@ angular.module('app',[])
                         target = '';
                     }
 
+                    console.log(target);
                     if($scope.anItem[i].anType === 'n'){
                         target = target.replace(/\D/ig,'')
                     }
@@ -90,11 +99,12 @@ angular.module('app',[])
                         $scope.nextBase + $($scope.nextSel).attr('href') :
                         $scope.nextBase + $($scope.nextSel)[0].attr('href');
                     // console.log('next page',next);
-                    if (total <= 20) {
+                    if (total <= $scope.anCount) {
                         $scope.fetchPage(next);
                     }else{
                         dealData.savedData = result;
                         console.log(result)
+                        $scope._state.go('tab2')
                     }
                 }else{
                     if($($scope.nextSel).length <= 1){
@@ -102,16 +112,17 @@ angular.module('app',[])
                         return;
                     }
                     for(let i =0; i<$($scope.nextSel).length; i++){
-                        var next = $scope.nextBase + $($scope.nextSel)[i].attr('href');
+                        var next = ($scope.nextBase || '')+ $($scope.nextSel)[i].attr('href');
                         // console.log('next page',next);
-                        if (total <= 20) {
+                        if (total <= $scope.anCount) {
                             $scope.fetchPage(next);
                         }else{
                             dealData.savedData = result;
                             console.log(result)
+                            $scope._state.go('tab2')
                         }
                     }
-                    var next = $scope.nextBase + $($scope.nextSel).attr('href');
+                    // var next = $scope.nextBase + $($scope.nextSel).attr('href');
                 }
             });
         }).on('error', function (err) {
