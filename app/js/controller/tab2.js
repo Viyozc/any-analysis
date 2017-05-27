@@ -3,3 +3,6 @@ angular.module('app',[])
     $scope.dealData = dealData.savedData;
     $scope.tHead = dealData.tHead;
 }])
+.controller('tab3',['$scope','dealData',function ($scope, dealData) {
+
+}])

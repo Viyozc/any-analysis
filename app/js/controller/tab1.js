@@ -42,9 +42,8 @@ angular.module('app',[])
 
 
     //=========================================//
-
-        //"http://www.ss.pku.edu.cn/index.php/newscenter/news/2391";
-//初始url
+    
+    //初始url
 
     var result = [];
     $scope.fetchPage = function(url) { //封装了一层函数
@@ -118,7 +117,7 @@ angular.module('app',[])
                             $scope.fetchPage(next);
                         }else{
                             dealData.savedData = result;
-                            console.log(result)
+                            console.log(result);
                             $scope._state.go('tab2')
                         }
                     }

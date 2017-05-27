@@ -1,15 +1,41 @@
 @import './components/reset';
 
 
-$barHeight : 40px;
+$barHeight : 25px;
 $barColor : #000;
+$bgColor: #fff;
 
 html{
   height:100%;
 }
 body{
   height:100%;
+  background:$bgColor;
 }
+
+.title-btn{
+  display:block;
+  height:$barHeight/2;
+  width:$barHeight/2;
+  float:left;
+  margin-left:$barHeight/2;
+  margin-top:$barHeight/4;
+  border-radius: 50%;
+  &.close{
+    background:orangered;
+  }
+  &.min-page{
+    background:yellow;
+  }
+  &.max-page{
+    background:green;
+  }
+  &:hover{
+    cursor:pointer;
+  }
+
+}
+
 
 .title-bar{
   -webkit-app-region:drag;
