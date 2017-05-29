@@ -1,34 +1,34 @@
 
 <div>
-    <label >website</label>
+    <label >Main-Site</label>
     <div class="input-group">
-        <span class="input-group-addon" >website</span>
+        <span class="input-group-addon" >Site-Set</span>
         <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="anSite">
-        <span class="input-group-addon" >count</span>
+        <span class="input-group-addon" >Data-Count</span>
         <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="anCount">
     </div>
     <br>
-    <label >website</label>
+    <label >Out-Site</label>
     <div class="input-group">
-        <span class="input-group-addon" >other entrance</span>
+        <span class="input-group-addon" >Base-site</span>
         <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="nextBase">
-        <span class="input-group-addon" >other entrance</span>
+        <span class="input-group-addon" >Out-Selector</span>
         <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="nextSel">
         <div class="checkbox input-group-addon ">
             <label>
-                <input type="checkbox" ng-model="singleOut">only
+                <input type="checkbox" ng-model="isConcat">Concat?
             </label>
         </div>
     </div>
     <br>
-    <label>analysis data set</label>
+    <label>Data-To-Get</label>
     <ul class="list-group">
         <li class="list-group-item list-group-item-success" ng-repeat="obj in anItem track by $index">
             <div class="input-group">
-                <span class="input-group-addon"> 数据名</span>
+                <span class="input-group-addon">Data-Title</span>
                 <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="obj.anName">
 
-                <span class="input-group-addon" >选择器</span>
+                <span class="input-group-addon" >Data-Selector</span>
                 <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="obj.anSelection">
 
                 <!--<div class="checkbox">-->
@@ -36,13 +36,11 @@
                     <!--</label>-->
                 <!--</div>-->
 
-                <span class="input-group-addon">类型</span>
+                <span class="input-group-addon">Type</span>
                 <select name="type" class="form-control " ng-model="obj.anType">
                     <option value="string" selected="selected">string</option>
-                    <option value="num">num</option>
+                    <option value="number">num</option>
                 </select>
-
-
             </div>
         </li>
 

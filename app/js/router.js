@@ -32,6 +32,15 @@ routes.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', fu
                 return $ocLazyLoad.load(['js/controller/tab2.js'])
             }]
         }
+    }).state('dataChart',{
+        url:'/dataChart',
+        controller:'dataChartCtrl',
+        templateUrl:'views/dataChart.html',
+        resolve:{
+            dep:['$ocLazyLoad',function ($ocLazyLoad) {
+                return $ocLazyLoad.load(['js/controller/tab2.js'])
+            }]
+        }
     })
     $urlRouterProvider.otherwise('/tab1');
 }]);
