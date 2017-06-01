@@ -17,7 +17,7 @@ angular.module('app', [])
         $scope.anCount = 5;
         $scope.anItem = [
             {anName: 'title', anSelection: 'div.leftWrap h1.article_title', anType: 'string'},
-            {anName: 'name', anSelection: '.article_meta.article_meta_nowrap span.lFloat', anType: 'string'}
+            {anName: 'count', anSelection: '.article_meta.article_meta_nowrap span.lFloat', anType: 'number'}
         ]
 
         $scope.addMore = function () {
