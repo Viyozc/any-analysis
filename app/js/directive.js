@@ -1,4 +1,4 @@
-const directives = angular.module('directives',[])
+const directives = angular.module('directives',[]);
 
 directives.directive('afterRepeat',['$timeout',function ($timeout) {
     return function (scope,elem,attrs) {

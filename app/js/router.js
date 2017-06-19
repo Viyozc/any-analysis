@@ -36,12 +36,7 @@ routes.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', fu
         url:'/dataChart',
         controller:'dataChartCtrl',
         templateUrl:'views/dataChart.html',
-        // resolve:{
-        //     dep:['$ocLazyLoad',function ($ocLazyLoad) {
-        //         return $ocLazyLoad.load(['js/controller/pageData.js'])
-        //     }]
-        // }
-    })
+    });
     $urlRouterProvider.otherwise('/pageAnalysis');
 }]);
 

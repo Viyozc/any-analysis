@@ -6,17 +6,17 @@ angular.module('app',[])
 .controller('dataChartCtrl',['$scope','dealData',function ($scope, dealData) {
     console.log('dataChartpage');
 
-    var myChart = echarts.init(document.getElementById('main'));
+    let myChart = echarts.init(document.getElementById('main'));
     console.log('data',dealData.savedData);
-    var xData = function () {
-        var out = [];
+    let xData = function () {
+        let out = [];
         for(let i =0; i<dealData.savedData.length;i++){
             out.push(dealData.savedData[i].title.slice(0,10))
         }
         return out;
     };
-    var yData = function () {
-        var out = [];
+    let yData = function () {
+        let out = [];
         for(let i =0; i<dealData.savedData.length;i++){
             out.push(Number(dealData.savedData[i].count))
         }
@@ -24,7 +24,7 @@ angular.module('app',[])
     };
 
     // 指定图表的配置项和数据
-    var option = {
+    let option = {
         title: {
             text: '文章统计'
         },

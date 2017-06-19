@@ -1,5 +1,5 @@
 /**
- * Created by hlkjsen on 2017/4/25.
+ * Created by allen on 2017/4/25.
  */
 var app = angular.module('app',['routes','services']);
 
@@ -12,8 +12,3 @@ app.config(['$ocLazyLoadProvider', '$compileProvider', function($ocLazyLoadProvi
 app.run(['$rootScope','$state',function ($rootScope,$state) {
     $rootScope._state = $state;
 }]);
-
-// app.controller('mainCtrl',['$scope',function ($scope) {
-//     console.log('mainCtrl');
-//     $scope.title = 'hello';
-// }])
