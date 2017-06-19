@@ -11,9 +11,8 @@ app.config(['$ocLazyLoadProvider', '$compileProvider', function($ocLazyLoadProvi
 }]);
 app.run(['$rootScope','$state',function ($rootScope,$state) {
     $rootScope._state = $state;
-}])
-//
-//
+}]);
+
 // app.controller('mainCtrl',['$scope',function ($scope) {
 //     console.log('mainCtrl');
 //     $scope.title = 'hello';

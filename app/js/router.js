@@ -14,34 +14,34 @@ routes.config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', fu
                 return $ocLazyLoad.load(['js/controller/mainCtrl.js'])
             }]
         }
-    }).state('tab1', {
-        url: '/tab1',
-        controller:'tab1',
-        templateUrl:'views/tab1.html',
+    }).state('pageAnalysis', {
+        url: '/pageAnalysis',
+        controller:'pageAnalysis',
+        templateUrl:'views/pageAnalysis.html',
         resolve:{
             dep:['$ocLazyLoad',function ($ocLazyLoad) {
-                return $ocLazyLoad.load(['js/controller/tab1.js']);
+                return $ocLazyLoad.load(['js/controller/pageAnalysis.js']);
             }]
         }
-    }).state('tab2',{
-        url:'/tab2',
-        controller:'tab2',
-        templateUrl:'views/tab2.html',
+    }).state('pageData',{
+        url:'/pageData',
+        controller:'pageData',
+        templateUrl:'views/pageData.html',
         resolve:{
             dep:['$ocLazyLoad',function ($ocLazyLoad) {
-                return $ocLazyLoad.load(['js/controller/tab2.js'])
+                return $ocLazyLoad.load(['js/controller/pageData.js'])
             }]
         }
     }).state('dataChart',{
         url:'/dataChart',
         controller:'dataChartCtrl',
         templateUrl:'views/dataChart.html',
-        resolve:{
-            dep:['$ocLazyLoad',function ($ocLazyLoad) {
-                return $ocLazyLoad.load(['js/controller/tab2.js'])
-            }]
-        }
+        // resolve:{
+        //     dep:['$ocLazyLoad',function ($ocLazyLoad) {
+        //         return $ocLazyLoad.load(['js/controller/pageData.js'])
+        //     }]
+        // }
     })
-    $urlRouterProvider.otherwise('/tab1');
+    $urlRouterProvider.otherwise('/pageAnalysis');
 }]);
 

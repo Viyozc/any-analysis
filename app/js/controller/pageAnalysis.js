@@ -1,13 +1,13 @@
 /**
- * Created by hlkjsen on 2017/4/26.
+ * Created by allen on 2017/4/26.
  */
 angular.module('app', [])
-    .controller('tab1', ['$scope', 'dealData', function ($scope, dealData) {
-        var total = 0;
-        var http = require('http');
-        var fs = require('fs');
-        var cheerio = require('cheerio');
-        var request = require('request');
+    .controller('pageAnalysis', ['$scope', 'dealData', function ($scope, dealData) {
+        let http    = require('http');
+        let fs      = require('fs');
+        let cheerio = require('cheerio');
+        let request = require('request');
+        let total   = 0;
 
 
         $scope.anSite = 'http://www.hangge.com/blog/cache/detail_1188.html';
@@ -18,7 +18,7 @@ angular.module('app', [])
         $scope.anItem = [
             {anName: 'title', anSelection: 'div.leftWrap h1.article_title', anType: 'string'},
             {anName: 'count', anSelection: '.article_meta.article_meta_nowrap span.lFloat', anType: 'number'}
-        ]
+        ];
 
         $scope.addMore = function () {
             $scope.anItem.push({anName: '', anSelection: '', anType: 'string'})
@@ -27,38 +27,26 @@ angular.module('app', [])
         $scope.start = function () {
             // alert($scope.anItem);
             total = 0;
-            var tHead = [];
+            let tHead = [];
             for (let i = 0; i < $scope.anItem.length; i++) {
                 tHead.push($scope.anItem[i]['anName'])
             }
-
             dealData.tHead = tHead;
-
             console.log($scope.anItem);
             $scope.fetchPage($scope.anSite);
+        };
 
-        }
-
-
-        //=========================================//
-
-        //初始url
-
-        var result = [];
-        $scope.fetchPage = function (url) { //封装了一层函数
-
+        let result = [];
+        $scope.fetchPage = function (url) {
             startRequest(url);
-
-        }
-
+        };
 
         function startRequest(url) {
-            if(total >= $scope.anCount) return;
-            //采用http模块向服务器发起一次get请求
+            if (total >= $scope.anCount) return;
+
             http.get(url, function (res) {
-                var html = '';        //用来存储请求网页的整个html内容
-                res.setEncoding('utf-8'); //防止中文乱码
-                //监听data事件，每次取一块数据
+                let html = '';
+                res.setEncoding('utf-8');
                 console.log('start req');
                 res.on('data', function (chunk) {
                     html += chunk;
@@ -66,10 +54,11 @@ angular.module('app', [])
                 });
                 //监听end事件，如果整个网页内容的html都获取完毕，就执行回调函数
                 res.on('end', function () {
-                    total++;
-                    var $ = cheerio.load(html); //采用cheerio模块解析html
-                    var out = {};
-                    var target = '';
+
+                    //采用cheerio模块解析html
+                    let $ = cheerio.load(html);
+                    let out = {};
+                    let target = '';
                     console.log('out', out);
                     for (let i = 0; i < $scope.anItem.length; i++) {
                         if ($($scope.anItem[i].anSelection)) {
@@ -86,18 +75,40 @@ angular.module('app', [])
                         out[$scope.anItem[i].anName] = target || '';
                     }
 
-                    //异步获取 数量会超出
-                    if(result.length < $scope.anCount){
-                        result.push(out);
-                    }
+                    Array.prototype.only = function(){
+                        for(var i=0, temp={}, result=[], ci; ci=this[i++];){
+                            var key = ci.$scope.anItem[0].anName;
+                            if(temp[key]){
+                                continue;
+                            }
+                            temp[key] = true;
+                            result.push(ci);
+                        }
+                        return result;
+                    };
 
+
+                    //异步获取 数量会超出
+                    if (result.length < $scope.anCount) {
+                        let flag = false;
+                        for(let i = 0;i <result.length ;i ++){
+                            if(result[i].title == out.title){
+                                flag = true;
+                                return
+                            }
+                        }
+                        if(!flag){
+                            total++;
+                            result.push(out);
+                        }
+                    }
 
 
                     fetchNext(getNextUrls($));
 
                     // console.log($($scope.nextSel).length);
                     // if ($scope.singleOut === true) {
-                    //     var next = $($scope.nextSel).length = 1 ?
+                    //     let next = $($scope.nextSel).length = 1 ?
                     //         $scope.nextBase + $($scope.nextSel).attr('href') :
                     //         $scope.nextBase + $($scope.nextSel)[0].attr('href');
                     //     // console.log('next page',next);
@@ -111,7 +122,7 @@ angular.module('app', [])
                     // } else {
 
                     // for (let i = 0; i < $($scope.nextSel).length; i++) {
-                    //     var next = ($scope.nextBase || '') + $($scope.nextSel)[i].attr('href');
+                    //     let next = ($scope.nextBase || '') + $($scope.nextSel)[i].attr('href');
                     //     // console.log('next page',next);
                     //     if (total <= $scope.anCount) {
                     //         $scope.fetchPage(next);
@@ -121,7 +132,7 @@ angular.module('app', [])
                     //         $scope._state.go('tab2')
                     //     }
                     // }
-                        // var next = $scope.nextBase + $($scope.nextSel).attr('href');
+                    // let next = $scope.nextBase + $($scope.nextSel).attr('href');
 
                 });
             }).on('error', function (err) {
@@ -129,28 +140,28 @@ angular.module('app', [])
             });
 
             function getNextUrls($) {
-                var out = [];
-                if($scope.isConcat){
-                    for(let i=0;i<$($scope.nextSel).length;i++){
-                        out.push( $scope.nextBase + $($scope.nextSel).attr('href') )
+                let out = [];
+                if ($scope.isConcat) {
+                    for (let i = 0; i < $($scope.nextSel).length; i++) {
+                        out.push($scope.nextBase + $($scope.nextSel).attr('href'))
                     }
-                    console.log('out data',out);
-
-                }else{
-                    for(let i=0;i<$($scope.nextSel).length;i++){
-                        out.push( $($scope.nextSel).attr('href') )
+                    console.log('out data', out);
+                } else {
+                    for (let i = 0; i < $($scope.nextSel).length; i++) {
+                        out.push($($scope.nextSel).attr('href'))
                     }
-                    console.log('out data',out);
+                    console.log('out data', out);
                 }
                 return out;
             }
 
             function fetchNext(arr) {
-                for (let i = 0; i < arr.length; i++){
+                for (let i = 0; i < arr.length; i++) {
                     $scope.fetchPage(arr[i]);
-                    if(total >= $scope.anCount){
+                    if (total >= $scope.anCount) {
                         dealData.savedData = result;
-                        $scope._state.go('tab2');
+                        console.log('test',result);
+                        $scope._state.go('pageData');
                         return;
                     }
                 }
@@ -161,13 +172,11 @@ angular.module('app', [])
 //该函数的作用：在本地存储所爬取的新闻内容资源
 //     function savedContent($, news_title) {
 //         $('.article-content p').each(function (index, item) {
-//             var content = $(this).text();
-//
-//             var y = content.substring(0, 2).trim();
-//
+//             let content = $(this).text();
+//             let y = content.substring(0, 2).trim();
 //             if (y == '') {
 //                 content = content + '\n';
-//将新闻文本内容一段一段添加到/data文件夹下，并用新闻的标题来命名文件
+//  将新闻文本内容一段一段添加到/data文件夹下，并用新闻的标题来命名文件
 //                 fs.appendFile('./data/' + news_title + '.txt', content, 'utf-8', function (err) {
 //                     if (err) {
 //                         console.log(err);
@@ -179,12 +188,12 @@ angular.module('app', [])
 //     //该函数的作用：在本地存储所爬取到的图片资源
 //     function savedImg($,news_title) {
 //         $('.article-content img').each(function (index, item) {
-//             var img_title = $(this).parent().next().text().trim();  //获取图片的标题
+//             let img_title = $(this).parent().next().text().trim();  //获取图片的标题
 //             if(img_title.length>35||img_title==""){
 //                 img_title="Null";}
-//             var img_filename = img_title + '.jpg';
+//             let img_filename = img_title + '.jpg';
 //
-//             var img_src = 'http://www.ss.pku.edu.cn' + $(this).attr('src'); //获取图片的url
+//             let img_src = 'http://www.ss.pku.edu.cn' + $(this).attr('src'); //获取图片的url
 //
 //             //采用request模块，向服务器发起一次请求，获取图片资源
 //             request.head(img_src,function(err,res,body){

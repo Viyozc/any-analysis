@@ -11,5 +11,3 @@ directives.directive('afterRepeat',['$timeout',function ($timeout) {
 }]);
 
 
-directives.directive('')
-
