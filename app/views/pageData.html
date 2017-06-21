@@ -1,9 +1,36 @@
 <div>
-    <div class="btn-group pull-right">
-        <div class="btn btn-danger " ui-sref="dataChart">图分析</div>
-        <div class="btn btn-danger ">to-do</div>
+    <form class="form-inline">
+        <div class="form-group">
+            <label>图标样式:</label>
+            <select class="form-control" style="width:100px;">
+                <option value="1" selected="selected">柱状图</option>
+                <option value="2">饼状图</option>
+            </select>
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <label>标题内容:</label>
+            <select class="form-control " style="width:100px;">
+                <option value="111" selected="selected">name</option>
+                <option value="222">count</option>
+            </select>
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <label>数据内容:</label>
+            <select class="form-control " style="width:100px;">
+                <option value="222" selected="selected">count</option>
+                <option value="111">name</option>
+            </select>
+        </div>
 
-    </div>
+        &nbsp;
+        <div class="form-group">
+            <div class="btn btn-danger " ui-sref="dataChart">图分析</div>
+            &nbsp;
+            <div class="btn btn-danger ">to-do</div>
+        </div>
+    </form>
     <br>
     <br>
     <div class="panel panel-default">

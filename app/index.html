@@ -20,12 +20,14 @@
     <script src="js/other.js"></script>
 </head>
 <body>
+
     <div class="title-bar">
         <div class="title-btn close"></div>
         <div class="title-btn min-page"></div>
         <div class="title-btn max-page"></div>
     </div>
-    <div class="main-body">
+    <div class="main-body" style="position: relative;">
+        <div ng-show="loading.state" ng-include="'views/components/loading.html'"></div>
         <div ng-include="'views/header.html'"></div>
         <div ui-view class="main-page"></div>
     </div>

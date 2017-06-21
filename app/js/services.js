@@ -8,3 +8,8 @@ angular.module('services',[])
         tHead:[]
     }
 })
+.factory('chartData',function () {
+    return {
+
+    }
+})

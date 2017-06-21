@@ -9,31 +9,43 @@ angular.module('app', [])
         let request = require('request');
         let total   = 0;
 
+        if(localStorage.data){
+            $scope.table = angular.fromJson(localStorage.data);
+        }else{
+            $scope.table = {};
+            $scope.table.anSite = 'http://www.hangge.com/blog/cache/detail_1188.html';
+            $scope.table.nextBase = 'http://www.hangge.com/blog/cache/';
+            $scope.table.nextSel = '.pre_next_article .a_underline';
+            $scope.table.isConcat = true;
+            $scope.table.anCount = 5;
+            $scope.table.anItem = [
+                {anName: 'title', anSelection: 'div.leftWrap h1.article_title', anType: 'string'},
+                {anName: 'count', anSelection: '.article_meta.article_meta_nowrap span.lFloat', anType: 'number'}
+            ];
+        }
 
-        $scope.anSite = 'http://www.hangge.com/blog/cache/detail_1188.html';
-        $scope.nextBase = 'http://www.hangge.com/blog/cache/';
-        $scope.nextSel = '.pre_next_article .a_underline';
-        $scope.isConcat = true;
-        $scope.anCount = 5;
-        $scope.anItem = [
-            {anName: 'title', anSelection: 'div.leftWrap h1.article_title', anType: 'string'},
-            {anName: 'count', anSelection: '.article_meta.article_meta_nowrap span.lFloat', anType: 'number'}
-        ];
+        $scope.deleteItem = function (index) {
+            $scope.table.anItem.splice(index,1)
+        }
 
         $scope.addMore = function () {
-            $scope.anItem.push({anName: '', anSelection: '', anType: 'string'})
+            $scope.table.anItem.push({anName: '', anSelection: '', anType: 'string'})
         };
 
         $scope.start = function () {
+            $scope.loading.start();
+            var saveLocal = angular.toJson($scope.table);
+            localStorage.setItem('data',saveLocal);
+            console.log('start')
             // alert($scope.anItem);
             total = 0;
             let tHead = [];
-            for (let i = 0; i < $scope.anItem.length; i++) {
-                tHead.push($scope.anItem[i]['anName'])
+            for (let i = 0; i < $scope.table.anItem.length; i++) {
+                tHead.push($scope.table.anItem[i]['anName'])
             }
             dealData.tHead = tHead;
-            console.log($scope.anItem);
-            $scope.fetchPage($scope.anSite);
+            console.log($scope.table.anItem);
+            $scope.fetchPage($scope.table.anSite);
         };
 
         let result = [];
@@ -42,7 +54,7 @@ angular.module('app', [])
         };
 
         function startRequest(url) {
-            if (total >= $scope.anCount) return;
+            if (total >= $scope.table.anCount) return;
 
             http.get(url, function (res) {
                 let html = '';
@@ -60,24 +72,24 @@ angular.module('app', [])
                     let out = {};
                     let target = '';
                     console.log('out', out);
-                    for (let i = 0; i < $scope.anItem.length; i++) {
-                        if ($($scope.anItem[i].anSelection)) {
-                            target = $($scope.anItem[i].anSelection).length = 1 ?
-                                $($scope.anItem[i].anSelection).text().trim() :
-                                $($scope.anItem[i].anSelection)[0].text().trim();
+                    for (let i = 0; i < $scope.table.anItem.length; i++) {
+                        if ($($scope.table.anItem[i].anSelection)) {
+                            target = $($scope.table.anItem[i].anSelection).length = 1 ?
+                                $($scope.table.anItem[i].anSelection).text().trim() :
+                                $($scope.table.anItem[i].anSelection)[0].text().trim();
                         } else {
                             target = '';
                         }
                         console.log(target);
-                        if ($scope.anItem[i].anType === 'number') {
+                        if ($scope.table.anItem[i].anType === 'number') {
                             target = target.replace(/\D/ig, '')
                         }
-                        out[$scope.anItem[i].anName] = target || '';
+                        out[$scope.table.anItem[i].anName] = target || '';
                     }
 
                     Array.prototype.only = function(){
                         for(var i=0, temp={}, result=[], ci; ci=this[i++];){
-                            var key = ci.$scope.anItem[0].anName;
+                            var key = ci.$scope.table.anItem[0].anName;
                             if(temp[key]){
                                 continue;
                             }
@@ -89,7 +101,7 @@ angular.module('app', [])
 
 
                     //异步获取 数量会超出
-                    if (result.length < $scope.anCount) {
+                    if (result.length < $scope.table.anCount) {
                         let flag = false;
                         for(let i = 0;i <result.length ;i ++){
                             if(result[i].title == out.title){
@@ -141,14 +153,14 @@ angular.module('app', [])
 
             function getNextUrls($) {
                 let out = [];
-                if ($scope.isConcat) {
-                    for (let i = 0; i < $($scope.nextSel).length; i++) {
-                        out.push($scope.nextBase + $($scope.nextSel).attr('href'))
+                if ($scope.table.isConcat) {
+                    for (let i = 0; i < $($scope.table.nextSel).length; i++) {
+                        out.push($scope.table.nextBase + $($scope.table.nextSel).attr('href'))
                     }
                     console.log('out data', out);
                 } else {
-                    for (let i = 0; i < $($scope.nextSel).length; i++) {
-                        out.push($($scope.nextSel).attr('href'))
+                    for (let i = 0; i < $($scope.table.nextSel).length; i++) {
+                        out.push($($scope.table.nextSel).attr('href'))
                     }
                     console.log('out data', out);
                 }
@@ -158,9 +170,10 @@ angular.module('app', [])
             function fetchNext(arr) {
                 for (let i = 0; i < arr.length; i++) {
                     $scope.fetchPage(arr[i]);
-                    if (total >= $scope.anCount) {
+                    if (total >= $scope.table.anCount) {
                         dealData.savedData = result;
                         console.log('test',result);
+                        $scope.loading.stop();
                         $scope._state.go('pageData');
                         return;
                     }

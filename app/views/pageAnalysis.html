@@ -3,17 +3,17 @@
     <label >Main-Site</label>
     <div class="input-group">
         <span class="input-group-addon" >Site-Set</span>
-        <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="anSite">
+        <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="table.anSite">
         <span class="input-group-addon" >Data-Count</span>
-        <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="anCount">
+        <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="table.anCount">
     </div>
     <br>
     <label >Out-Site</label>
     <div class="input-group">
         <span class="input-group-addon" >Base-site</span>
-        <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="nextBase">
+        <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="table.nextBase">
         <span class="input-group-addon" >Out-Selector</span>
-        <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="nextSel">
+        <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="table.nextSel">
         <div class="checkbox input-group-addon ">
             <label>
                 <input type="checkbox" ng-model="isConcat">Concat?
@@ -23,9 +23,9 @@
     <br>
     <label>Data-To-Get</label>
     <ul class="list-group">
-        <li class="list-group-item list-group-item-success" ng-repeat="obj in anItem track by $index">
+        <li class="list-group-item list-group-item-success" ng-repeat="obj in table.anItem track by $index">
             <div class="input-group">
-                <span class="input-group-addon">Data-Title</span>
+                <span class="input-group-addon" ng-click="deleteItem($index)">Data-Title</span>
                 <input type="text" class="form-control" aria-describedby="basic-addon3" ng-model="obj.anName">
 
                 <span class="input-group-addon" >Data-Selector</span>

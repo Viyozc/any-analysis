@@ -11,4 +11,13 @@ app.config(['$ocLazyLoadProvider', '$compileProvider', function($ocLazyLoadProvi
 }]);
 app.run(['$rootScope','$state',function ($rootScope,$state) {
     $rootScope._state = $state;
+    $rootScope.loading = {
+        state : false,
+        start : function () {
+            this.state = true;
+        },
+        stop:function () {
+            this.state = false;
+        }
+    }
 }]);
